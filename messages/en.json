@@ -1,0 +1,30 @@
+{
+  "HomePage": {
+    "title": "Home Page",
+    "Pricing": "Pricing"
+  },
+  "NavbarMenu": {
+    "Pricing": "Pricing",
+    "Surveys": "Surveys",
+    "Surveys_desc": "Create surveys to suit your needs",
+    "Forms": "Forms",
+    "Forms_desc": "  Create surveys to suit your needs",
+    "Products": "Products",
+    "Templates": "Templates"
+  },
+  "SignIn": {
+    "title": "Sign In"
+  },
+  "Dashboard": {
+    "title": "Dashboard"
+  },
+  "Navbar": {
+    "Dashboard": "Dashboard",
+    "Logout": "Logout",
+    "SignIn": "Sign In"
+  },
+  "Hero": {
+    "title": "Revolutionize Your Surveys with SurveyNest",
+    "highlight": "Innovative, Fast, and User-Friendly!"
+  }
+}

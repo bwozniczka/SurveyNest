@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -13,20 +13,22 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { components } from "@/constants";
+import { useTranslations } from "next-intl";
 
 export function NavMenu() {
+  const t = useTranslations("NavbarMenu");
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{t("Products")}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <ListItem href="/surveys" title="Surveys">
-                Create surveys to suit your needs
+              <ListItem href="/surveys" title={t("Surveys")}>
+                {t("Surveys_desc")}
               </ListItem>
-              <ListItem href="/forms" title="Forms">
-                Create forms tailored to your requirements
+              <ListItem href="/forms" title={t("Forms")}>
+                {t("Forms_desc")}
               </ListItem>
               <ListItem href="/niewiem" title="Nie wiem">
                 Tutaj trzeba dodac wiecej informacji
@@ -35,7 +37,7 @@ export function NavMenu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Templates</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{t("Templates")}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
@@ -53,7 +55,7 @@ export function NavMenu() {
         <NavigationMenuItem>
           <Link href="/pricing" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Pricing
+              {t("Pricing")}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
