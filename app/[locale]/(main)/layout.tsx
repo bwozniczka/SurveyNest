@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getLocale } from "next-intl/server";
+import { Footer } from "@/components/Footer";
+import { getLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "SurveyNest",
@@ -14,13 +14,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const messages = await getMessages();
   return (
     <html lang={locale} className="h-full">
       <body className="flex flex-col min-h-screen">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        {children}
+        <Footer />
       </body>
     </html>
   );

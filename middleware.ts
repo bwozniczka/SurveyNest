@@ -5,7 +5,7 @@ import { routing } from "./i18n/routing";
 
 const locales = ["en", "pt"];
 
-const publicPages = ["/auth"]; // your public routes
+const publicPages = ["/auth"];
 const handleI18nRouting = createMiddleware(routing);
 
 const authMiddleware = auth((req) => {

@@ -12,8 +12,15 @@
     "Products": "Products",
     "Templates": "Templates"
   },
-  "SignIn": {
-    "title": "Sign In"
+  "AuthPage": {
+    "SignIn": "Sign In",
+    "SignUp": "Sign Up",
+    "TitleSignIn": "Sign in to your account",
+    "DescriptionSignIp": "Access your account by signing in.",
+    "TitleSignUp": "Create an account",
+    "DescriptionSignUp": "Sign up with your email and password, or continue with Google, Facebook, and LinkedIn.",
+    "Password": "Password",
+    "ConfirmPassword": "Confirm Password"
   },
   "Dashboard": {
     "title": "Dashboard"
