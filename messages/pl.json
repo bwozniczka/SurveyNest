@@ -18,7 +18,7 @@
     "TitleSignIn": "Zaloguj się na swoje konto",
     "DescriptionSignIp": "Podaj swoje dane logowania, aby uzyskać dostęp do swojego konta.",
     "TitleSignUp": "Utwórz konto",
-    "DescriptionSignUp": "Zarejestruj się za pomocą swojego adresu e-mail i hasła lub kontynuuj za pomocą Google, Facebooka lub LinkedIn.",
+    "DescriptionSignUp": "Zarejestruj się za pomocą swojego adresu e-mail i hasła lub kontynuuj za pomocą Google, Facebooka lub GitHub.",
     "Password": "Hasło",
     "ConfirmPassword": "Potwierdź hasło"
   },

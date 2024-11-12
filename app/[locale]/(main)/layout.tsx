@@ -1,12 +1,5 @@
-import type { Metadata } from "next";
-import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { getLocale } from "next-intl/server";
-
-export const metadata: Metadata = {
-  title: "SurveyNest",
-  description: "Revolutionize Your Surveys with SurveyNest",
-};
 
 export default async function RootLayout({
   children,
