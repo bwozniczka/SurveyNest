@@ -1,10 +1,13 @@
-import Link from "next/link";
-import { auth, signOut, signIn } from "@/auth";
+import { Link } from "@/i18n/routing";
+import { auth, signOut } from "@/auth";
 import Image from "next/image";
 import { NavMenu } from "@/components/NavbarMenu";
+import { getTranslations } from "next-intl/server";
+import LangChangeButton from "./LangChangeButton";
 
 const Navbar = async () => {
   const session = await auth();
+  const t = await getTranslations("Navbar");
 
   return (
     <header className="px-5 py-3 bg-orange-400 shadow-sm font-work-sans">
@@ -14,8 +17,8 @@ const Navbar = async () => {
             <Image
               src="/icon.png"
               alt="SurveyNest"
-              width={100}
-              height={50}
+              width={60}
+              height={30}
               className="bg-transparent"
             />
             <span className="text-white font-bold text-2xl ml-2">
@@ -26,11 +29,14 @@ const Navbar = async () => {
         <div className="flex  mt-2">
           <NavMenu />
         </div>
+        <div>
+          <LangChangeButton />
+        </div>
         <div className="flex items-center gap-5 text-black">
           {session && session?.user ? (
             <>
               <Link href="/dashboard">
-                <span className="max-sm:hidden">Dashboard</span>
+                <span className="max-sm:hidden">{t("Dashboard")}</span>
               </Link>
 
               <form
@@ -41,7 +47,7 @@ const Navbar = async () => {
                 }}
               >
                 <button type="submit">
-                  <span className="max-sm:hidden">Logout</span>
+                  <span className="max-sm:hidden">{t("Logout")}</span>
                 </button>
               </form>
 
@@ -50,16 +56,11 @@ const Navbar = async () => {
               </Link>
             </>
           ) : (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("google");
-              }}
-            >
+            <Link href="/signin">
               <button className="px-4 py-2 rounded-xl bg-black text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-black">
-                Sing In
+                {t("SignIn")}
               </button>
-            </form>
+            </Link>
           )}
         </div>
       </nav>

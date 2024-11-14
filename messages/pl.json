@@ -1,0 +1,37 @@
+{
+  "HomePage": {
+    "title": "Strona główna",
+    "Pricing": "Oferta"
+  },
+  "NavbarMenu": {
+    "Pricing": "Oferta",
+    "Surveys": "Ankiety",
+    "Surveys_desc": "Twórz ankiety dostosowane do swoich potrzeb",
+    "Forms": "Formularze",
+    "Forms_desc": "Twórz formularze dostosowane do swoich potrzeb",
+    "Products": "Produkty",
+    "Templates": "Szablony"
+  },
+  "AuthPage": {
+    "SignIn": "Zaloguj się",
+    "SignUp": "Zarejestruj się",
+    "TitleSignIn": "Zaloguj się na swoje konto",
+    "DescriptionSignIp": "Podaj swoje dane logowania, aby uzyskać dostęp do swojego konta.",
+    "TitleSignUp": "Utwórz konto",
+    "DescriptionSignUp": "Zarejestruj się za pomocą swojego adresu e-mail i hasła lub kontynuuj za pomocą Google, Facebooka lub GitHub.",
+    "Password": "Hasło",
+    "ConfirmPassword": "Potwierdź hasło"
+  },
+  "Dashboard": {
+    "title": "Panel Użytkownika"
+  },
+  "Navbar": {
+    "Dashboard": "Panel Użytkownika",
+    "Logout": "Wyloguj",
+    "SignIn": "Zaloguj się"
+  },
+  "Hero": {
+    "title": "Zrewolucjonizuj swoje ankiety z SurveyNest",
+    "highlight": "Innowacyjne, Szybkie i Intuicyjne!"
+  }
+}
