@@ -5,9 +5,7 @@ import { redirect } from "next/navigation";
 export default async function SignIn() {
   const session = await auth();
   if (session) {
-    if (session) {
-      redirect("/dashboard");
-    }
+    redirect("/dashboard");
   }
   return <AuthComponent />;
 }
