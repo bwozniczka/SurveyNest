@@ -1,33 +1,49 @@
-import { getTranslations } from "next-intl/server";
-import { auth, signOut } from "@/auth";
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { auth } from "@/auth";
 
-export default async function Dashboard() {
-  const t = await getTranslations("Dashboard");
+export default async function Page() {
   const session = await auth();
-
-  return (
-    <>
-      {session && session.user ? (
-        <div>
-          <h1>{t("title")}</h1>
-          <p>Dashboard page</p>
-          <form
-            action={async () => {
-              "use server";
-
-              await signOut({ redirectTo: "/" });
-            }}
-          >
-            <button type="submit">
-              <span className="max-sm:hidden">Logout</span>
-            </button>
-          </form>
+  return session && session.user ? (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  Projects overview
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="aspect-video rounded-xl bg-muted/50" />
+            <div className="aspect-video rounded-xl bg-muted/50" />
+            <div className="aspect-video rounded-xl bg-muted/50" />
+          </div>
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
-      ) : (
-        <div>
-          <h1 className="text-3xl text-red-700">unauthorized</h1>
-        </div>
-      )}
-    </>
+      </SidebarInset>
+    </SidebarProvider>
+  ) : (
+    <div>
+      <h1 className="text-3xl text-red-700">unauthorized</h1>
+    </div>
   );
 }
