@@ -117,3 +117,30 @@ export const pricingPlans = [
     href: "/checkout/enterprise",
   },
 ];
+
+export const reviews = [
+  {
+    quote:
+      "SurveyNest has been a game-changer for our business. We're now able to collect feedback from our customers in a way that's easy and efficient.",
+    name: "Charles Dickens",
+    title: "CEO, Company Name",
+  },
+  {
+    quote:
+      "I've tried other survey tools in the past, but SurveyNest is by far the best. The templates are easy to use, and the analytics are top-notch.",
+    name: "Jane Austen",
+    title: "Marketing Manager, ABC",
+  },
+  {
+    quote:
+      "SurveyNest has helped us streamline our feedback process and improve our customer satisfaction. Highly recommend!",
+    name: "Edgar Allan Poe",
+    title: "Customer Service Manager, XYZ",
+  },
+  {
+    quote:
+      "The customer support team at SurveyNest is fantastic. They're always quick to respond and go above and beyond to help us with any issues.",
+    name: "Herman Melville",
+    title: "Operations Manager, 123",
+  },
+];

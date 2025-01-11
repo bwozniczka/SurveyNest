@@ -24,7 +24,7 @@ export function NavMenu() {
           <NavigationMenuTrigger>{t("Products")}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <ListItem href="/surveys" title={t("Surveys")}>
+              <ListItem href="/survey" title={t("Surveys")}>
                 {t("Surveys_desc")}
               </ListItem>
               <ListItem href="/forms" title={t("Forms")}>
