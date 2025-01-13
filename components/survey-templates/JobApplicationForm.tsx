@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useEffect } from 'react';
 import { SharedData } from '../FormBuilderView';
 
-type JobApplicationFormProps = { sharedData: SharedData; setSharedData: Dispatch<SetStateAction<SharedData>> }
+export type JobApplicationFormProps = { sharedData: SharedData; setSharedData: Dispatch<SetStateAction<SharedData>> }
 
 const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ sharedData, setSharedData }) => {
     const [formData, setFormData] = useState({
