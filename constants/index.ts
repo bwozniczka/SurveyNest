@@ -2,25 +2,25 @@ export const footerLinks = [
   {
     title: "About",
     links: [
-      { title: "How it works", url: "/" },
-      { title: "Vision and Mission", url: "/" },
+      { title: "How it works", url: "/about" },
+      { title: "Vision and Mission", url: "/mission" },
     ],
   },
   {
     title: "Products",
     links: [
-      { title: "SurveyNest", url: "/" },
-      { title: "SurveyNest Pro", url: "/" },
-      { title: "SurveyNest Enterprise", url: "/" },
+      { title: "SurveyNest", url: "/pricing" },
+      { title: "SurveyNest Pro", url: "/pricing" },
+      { title: "SurveyNest Enterprise", url: "/pricing" },
     ],
   },
   {
     title: "Socials",
     links: [
-      { title: "Discord", url: "/" },
-      { title: "Instagram", url: "/" },
-      { title: "Twitter", url: "/" },
-      { title: "Facebook", url: "/" },
+      { title: "Discord", url: "" },
+      { title: "Instagram", url: "" },
+      { title: "Twitter", url: "" },
+      { title: "Facebook", url: "" },
     ],
   },
 ];

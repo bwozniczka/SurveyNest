@@ -30,9 +30,6 @@ export function NavMenu() {
               <ListItem href="/forms" title={t("Forms")}>
                 {t("Forms_desc")}
               </ListItem>
-              <ListItem href="/niewiem" title="Nie wiem">
-                Tutaj trzeba dodac wiecej informacji
-              </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
