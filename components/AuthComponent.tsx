@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
-import { signInSchema, signUpSchema } from "@/schemas/authSchemas";
 
 export default function AuthComponent() {
   const t = useTranslations("AuthPage");
