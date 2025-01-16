@@ -16,7 +16,7 @@ export default function LangChan() {
     });
   };
   return (
-    <label className="border-2 rounded">
+    <label className="py-2 rounded-xl bg-orange-400 border-black text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-black">
       <p className="sr-only">Change language</p>
       <select
         defaultValue={localActive}

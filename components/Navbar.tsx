@@ -1,9 +1,9 @@
 import { Link } from "@/i18n/routing";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import Image from "next/image";
 import { NavMenu } from "@/components/NavbarMenu";
 import { getTranslations } from "next-intl/server";
-import LangChangeButton from "./LangChangeButton";
+import SlideOutMenu from "@/components/slideOutMenu";
 
 const Navbar = async () => {
   const session = await auth();
@@ -29,31 +29,9 @@ const Navbar = async () => {
         <div className="flex  mt-2">
           <NavMenu />
         </div>
-        <div>
-          <LangChangeButton />
-        </div>
         <div className="flex items-center gap-5 text-black">
           {session && session?.user ? (
-            <>
-              <Link href="/dashboard">
-                <span className="max-sm:hidden">{t("Dashboard")}</span>
-              </Link>
-
-              <form
-                action={async () => {
-                  "use server";
-
-                  await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button type="submit">
-                  <span className="max-sm:hidden">{t("Logout")}</span>
-                </button>
-              </form>
-              <Link href={`/user/${session?.id}`}>
-                <span>{session?.user?.name}</span>
-              </Link>
-            </>
+            <SlideOutMenu />
           ) : (
             <Link href="/signin">
               <button className="px-4 py-2 rounded-xl bg-black text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-black">

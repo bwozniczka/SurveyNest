@@ -1,7 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { Bot, Frame, Map, PieChart, SquareTerminal } from "lucide-react";
+import {
+  Bot,
+  ChevronLeft,
+  Frame,
+  Map,
+  PieChart,
+  SquareTerminal,
+} from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
@@ -83,6 +91,14 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
+      <div className="flex items-center justify-center pt-5">
+        <Link href="/">
+          <button className="pl-4 py-2 w-40 flex items-center justify-between rounded-xl bg-black text-white font-bold transition duration-200 hover:bg-orange-400 hover:text-black border-2 border-transparent hover:border-black">
+            <ChevronLeft className="w-6 h-6" />
+            <span className="ml-2 text-center flex-1">Go back</span>
+          </button>
+        </Link>
+      </div>
       <SidebarContent>
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
