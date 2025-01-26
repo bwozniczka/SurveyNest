@@ -16,11 +16,11 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ sharedData, set
     });
     useEffect(() => {
         setSharedData([
-            { name: "Name", type: "text" },
-            { name: "Email", type: "email" },
-            { name: "Phone", type: "text" },
-            { name: "Resume", type: "file" },
-            { name: "Cover letter", type: "textarea" }
+            { name: "Name", type: "text", required: true, options: [] },
+            { name: "Email", type: "email", required: true, options: [] },
+            { name: "Phone", type: "text", required: true, options: [] },
+            { name: "Resume", type: "file", required: true, options: [] },
+            { name: "Cover letter", type: "textarea", required: true, options: [] }
         ])
         console.log("dupa")
     }, [])
@@ -49,66 +49,34 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ sharedData, set
         console.log(formData);
     };
 
+    const formStyling = {
+        "text": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400",
+        "email": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400",
+        "textarea": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400",
+        "file": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+    }
+
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
-            <div className="mb-4">
-                <label htmlFor="name" className="block text-orange-400 font-bold mb-2">Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="email" className="block text-orange-400 font-bold mb-2">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="phone" className="block text-orange-400 font-bold mb-2">Phone:</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="resume" className="block text-orange-400 font-bold mb-2">Resume:</label>
-                <input
-                    type="file"
-                    id="resume"
-                    name="resume"
-                    onChange={handleFileChange}
-                    required
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="coverLetter" className="block text-orange-400 font-bold mb-2">Cover Letter:</label>
-                <textarea
-                    id="coverLetter"
-                    name="coverLetter"
-                    value={formData.coverLetter}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-            </div>
+            {sharedData && sharedData.map(({ name, type, required, options }, index) =>
+                <div key={index} className="mb-4">
+                    <label htmlFor={name.toLowerCase().replaceAll(" ", "_")} className="block text-orange-400 font-bold mb-2">{name.length > 0 ? name + ":" : null}</label>
+                    {['text', 'email'].includes(type) ? <input type={type} name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]} /> : null}
+                    {type == 'textarea' ? <textarea name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]} /> : null}
+                    {type == 'file' ? <input type={type} name={name.toLowerCase().replaceAll(" ", "_")} onChange={handleFileChange} className={formStyling[type]} /> : null}
+                    {type == 'select' ? <select name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]}>
+                        {options.map((option, index) => <option key={index} value={option}>{option}</option>)}
+                    </select> : null}
+                    {type == 'radio' ? options.map((option, index) => <div key={index} className="flex items-center space-x-2">
+                        <input type="radio" id={option.toLowerCase().replaceAll(" ", "_")} name={name.toLowerCase().replaceAll(" ", "_")} value={option} />
+                        <label htmlFor={option.toLowerCase().replaceAll(" ", "_")}>{option}</label>
+                    </div>) : null}
+                    {type == 'checkbox' ? options.map((option, index) => <div key={index} className="flex items-center space-x-2">
+                        <input type="checkbox" id={option.toLowerCase().replaceAll(" ", "_")} name={name.toLowerCase().replaceAll(" ", "_")} value={option} />
+                        <label htmlFor={option.toLowerCase().replaceAll(" ", "_")}>{option}</label>
+                    </div>) : null}
+                </div>
+            )}
             <button type="submit" className="w-full bg-orange-400 text-white py-2 px-4 rounded-lg hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-400">
                 Submit
             </button>
