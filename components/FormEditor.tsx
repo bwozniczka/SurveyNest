@@ -1,12 +1,19 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { getToken } from 'next-auth/jwt';
 import { BlankFormProps } from './survey-templates/BlankForm';
+import { SharedData } from './FormBuilderView';
 
-const FormBuilder: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
+type FormEditorProps = {
+    survey_id: number,
+    sharedData: SharedData,
+    setSharedData: Dispatch<SetStateAction<SharedData>>
+}
+
+const FormEditor: React.FC<FormEditorProps> = ({ survey_id, sharedData, setSharedData }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [surveySave, setSurveySave] = useState<boolean | null>(null);
+    const [surveySave, setSurveySave] = useState<string>("");
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -71,21 +78,37 @@ const FormBuilder: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) =>
     }
 
     const saveForm = async () => {
-        const token_response = await fetch("/api/token", { method: "GET" });
-        const token_data = await token_response.json();
-        const data = { survey: { name: sharedData.name, content: [...sharedData.content] }, user_id: token_data.token.sub };
+        const data = { survey: { name: sharedData.name, content: [...sharedData.content] }, survey_id: survey_id };
         console.log(data)
         await fetch("/api/database/survey", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data)
         }).then(res => res.json()).then(res => {
-            if (res.message == "added") {
-                setSurveySave(true)
+            if (res.message == "updated") {
+                setSurveySave("Survey updated")
             } else {
-                setSurveySave(false)
+                setSurveySave("Survey update failed")
+            }
+        });
+    }
+
+    const deleteForm = async () => {
+        const data = { survey_id: survey_id };
+        console.log(data)
+        await fetch("/api/database/survey", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json()).then(res => {
+            if (res.message == "deleted") {
+                setSurveySave("Survey deleted from database")
+            } else {
+                setSurveySave("Survey delete failed")
             }
         });
     }
@@ -93,11 +116,11 @@ const FormBuilder: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) =>
     return (
         <div>
             <button onClick={toggleSidebar} className="px-4 py-2 bg-blue-500 text-white rounded">
-                {isOpen ? 'Close' : 'Open'} Form Builder
+                {isOpen ? 'Close' : 'Open'} Form Editor
             </button>
             <div className={`transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 left-0 h-full w-100 bg-gray-800 text-white overflow-y-scroll`}>
                 <div className="flex justify-between items-center p-4">
-                    <h2 className="text-xl font-bold">Form Builder</h2>
+                    <h2 className="text-xl font-bold">Form Editor</h2>
                     <button onClick={toggleSidebar} className="text-white">
                         &#x2715;
                     </button>
@@ -137,11 +160,12 @@ const FormBuilder: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) =>
                     )}
                 </div>
                 <button className="p-4 bg-green-500 text-white w-full" onClick={addField}>Add Field</button>
-                <button className="p-4 bg-blue-500 text-white w-full" onClick={saveForm}>Save Form</button>
-                {surveySave == null ? null : <>{surveySave ? <h3>Survey saved!</h3> : <h3>Error while saving survey...</h3>}</>}
+                <button className="p-4 bg-blue-500 text-white w-full" onClick={saveForm}>Update Form</button>
+                <button className="p-4 bg-red-500 text-white w-full" onClick={deleteForm}>Delete Survey</button>
+                {surveySave ? <h3>{surveySave}</h3> : null}
             </div>
         </div>
     );
 };
 
-export default FormBuilder;
+export default FormEditor;

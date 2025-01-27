@@ -2,52 +2,11 @@
 
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useEffect } from 'react';
-import { BlankFormProps } from './BlankForm';
+import { SharedData } from '../FormBuilderView';
 
-const JobApplicationForm: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
-    const [formData, setFormData] = useState({
-        surveyName: '',
-        name: '',
-        email: '',
-        phone: '',
-        resume: null as File | null,
-        coverLetter: ''
-    });
-    useEffect(() => {
-        setSharedData({
-            name: "Job Application Form", content: [
-                { name: "Name", type: "text", required: true, options: [] },
-                { name: "Email", type: "email", required: true, options: [] },
-                { name: "Phone", type: "text", required: true, options: [] },
-                { name: "Resume", type: "file", required: true, options: [] },
-                { name: "Cover letter", type: "textarea", required: true, options: [] }
-            ]
-        })
-    }, [])
+export type BlankFormProps = { sharedData: SharedData; setSharedData: Dispatch<SetStateAction<SharedData>> }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, files } = e.target;
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0]
-            });
-        }
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
-    };
+const BlankForm: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
 
     const formStyling = {
         "text": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400",
@@ -57,15 +16,15 @@ const JobApplicationForm: React.FC<BlankFormProps> = ({ sharedData, setSharedDat
     }
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
+        <form className="max-w-lg mx-auto p-4 border rounded-lg shadow-md">
             <h1>{sharedData.name}</h1>
             {sharedData && sharedData.content.map(({ name, type, required, options }, index) =>
                 <div key={index} className="mb-4">
                     <label htmlFor={name.toLowerCase().replaceAll(" ", "_")} className="block text-orange-400 font-bold mb-2">{name.length > 0 ? name + ":" : null}</label>
                     {['text', 'email'].includes(type) ? <input type={type} name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]} /> : null}
                     {type == 'textarea' ? <textarea name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]} /> : null}
-                    {type == 'file' ? <input type={type} name={name.toLowerCase().replaceAll(" ", "_")} onChange={handleFileChange} className={formStyling[type]} /> : null}
-                    {type == 'select' ? <select name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]}>
+                    {type == 'file' ? <input type={type} name={name.toLowerCase().replaceAll(" ", "_")} className={formStyling[type]} /> : null}
+                    {type == 'select' ? <select name={name.toLowerCase().replaceAll(" ", "_")}>
                         {options.map((option, index) => <option key={index} value={option}>{option}</option>)}
                     </select> : null}
                     {type == 'radio' ? options.map((option, index) => <div key={index} className="flex items-center space-x-2">
@@ -85,4 +44,4 @@ const JobApplicationForm: React.FC<BlankFormProps> = ({ sharedData, setSharedDat
     );
 };
 
-export default JobApplicationForm;
+export default BlankForm;
