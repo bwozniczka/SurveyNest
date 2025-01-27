@@ -64,6 +64,13 @@ const FormBuilder: React.FC<JobApplicationFormProps> = ({ sharedData, setSharedD
         setSharedData([...sharedData, { name: '', type: 'text', required: false, options: [] }])
     }
 
+    const saveForm = async () => {
+        let data = { form: [...sharedData] }
+        await fetch("/api/creator/form", {
+            method: "POST",
+        }).then(res => res.json()).then(res => console.log(res));
+    }
+
     return (
         <div>
             <button onClick={toggleSidebar} className="px-4 py-2 bg-blue-500 text-white rounded">
@@ -110,7 +117,7 @@ const FormBuilder: React.FC<JobApplicationFormProps> = ({ sharedData, setSharedD
                     )}
                 </div>
                 <button className="p-4 bg-green-500 text-white w-full" onClick={addField}>Add Field</button>
-                <button className="p-4 bg-blue-500 text-white w-full" onClick={() => { } /* TODO: call API */}>Save Form</button>
+                <button className="p-4 bg-blue-500 text-white w-full" onClick={saveForm}>Save Form</button>
             </div>
         </div>
     );

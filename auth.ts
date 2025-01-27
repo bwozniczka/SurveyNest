@@ -2,7 +2,15 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GihHubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { headers } from 'next/headers';
 
+async function getBaseUrl() {
+  const headersList = await headers();
+  const proto = headersList.get('x-forwarded-proto') || 'http';
+  const host = headersList.get('host') || 'localhost:3000';
+  return `${proto}://${host}`;
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -18,6 +26,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.AUTH_FACEBOOK_ID,
       clientSecret: process.env.AUTH_FACEBOOK_SECRET,
     }),
+    CredentialsProvider({
+      async authorize(credentials) {
+        const baseUrl = await getBaseUrl();
+        const res = await fetch(`${baseUrl}/api/database/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(credentials),
+        });
+
+        const user = await res.json();
+
+        if (res.ok && user) {
+          return user;
+        }
+
+        return null;
+      },
+    }),
   ],
   pages: {
     signIn: "/signin",
@@ -30,8 +56,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: 60 * 60 * 24 * 30,
   },
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account && user) {
+    async jwt({ token, user }) {
+      if (user) {
         token.email = user.email;
         token.name = user.name;
       }
