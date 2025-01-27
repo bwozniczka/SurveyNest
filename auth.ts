@@ -4,8 +4,16 @@ import GitHubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
+import { headers } from 'next/headers';
 
 const prisma = new PrismaClient();
+
+async function getBaseUrl() {
+  const headersList = await headers();
+  const proto = headersList.get('x-forwarded-proto') || 'http';
+  const host = headersList.get('host') || 'localhost:3000';
+  return `${proto}://${host}`;
+}
 
 async function findOrCreateUser(profile: { email: string, name: string }) {
   const { email, name } = profile;
@@ -44,7 +52,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     CredentialsProvider({
       async authorize(credentials) {
-        const res = await fetch(`${process.env.BASE_URL}/api/database/login`, {
+        const baseUrl = await getBaseUrl()
+        const res = await fetch(`${baseUrl}/api/database/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),

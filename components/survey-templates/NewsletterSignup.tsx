@@ -2,11 +2,50 @@
 
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useEffect } from 'react';
-import { SharedData } from '../FormBuilderView';
+import { BlankFormProps } from './BlankForm';
 
-export type BlankFormProps = { sharedData: SharedData; setSharedData: Dispatch<SetStateAction<SharedData>> }
+const NewsletterSignupForm: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
+    const [formData, setFormData] = useState({
+        surveyName: '',
+        name: '',
+        email: '',
+        phone: '',
+        resume: null as File | null,
+        coverLetter: ''
+    });
+    useEffect(() => {
+        setSharedData({
+            name: "Newsletter Signup Form", content: [
+                { name: "Name", type: "text", required: true, options: [] },
+                { name: "Email", type: "email", required: true, options: [] },
+            ]
+        })
+    }, [])
 
-const BlankForm: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, files } = e.target;
+        if (files) {
+            setFormData({
+                ...formData,
+                [name]: files[0]
+            });
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        console.log(formData);
+    };
+
 
     const formStyling = {
         "text": "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400",
@@ -46,4 +85,4 @@ const BlankForm: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) => {
     );
 };
 
-export default BlankForm;
+export default NewsletterSignupForm;

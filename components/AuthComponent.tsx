@@ -29,6 +29,7 @@ export default function AuthComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userExist, setUserExist] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,6 +57,8 @@ export default function AuthComponent() {
       const result = await registerUser(firstName, lastName, email, password);
       if (result.success) {
         await handleCredentialsSignIn(email, password);
+      } else {
+        setUserExist(true)
       }
     } catch (error) {
       console.error("Error during sign-up:", error);
@@ -178,6 +181,7 @@ export default function AuthComponent() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {userExist ? <p>User already exists</p> : null}
               </div>
               <div className="space-y-1">
                 <Label htmlFor="password">{t("Password")}</Label>

@@ -36,7 +36,7 @@ export default function PresentationCardSurvey() {
           <CardItem
             translateZ={20}
             as={Link}
-            href=""
+            href="/templates/blank-form"
             target="__blank"
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
           >

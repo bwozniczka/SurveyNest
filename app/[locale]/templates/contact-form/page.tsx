@@ -10,7 +10,7 @@ export default async function Home() {
     return (
         <>
             <Navbar></Navbar>
-            <FormBuilderView template="JobApplicationForm"></FormBuilderView>
+            <FormBuilderView template="ContactForm"></FormBuilderView>
             <Footer></Footer>
         </>
     );

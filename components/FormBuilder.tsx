@@ -116,6 +116,7 @@ const FormBuilder: React.FC<BlankFormProps> = ({ sharedData, setSharedData }) =>
                                     <option value="select">Select</option>
                                     <option value="radio">Radio</option>
                                     <option value="checkbox">Checkbox</option>
+                                    <option value="date">Date</option>
                                 </select>
                                 <label htmlFor="required" className="align-middle m-1 block text-white-400 font-bold mb-2">Required:</label>
                                 <input type="checkbox" name="required" id="required" onChange={(event) => editFieldRequired(event, index)} checked={required} className="p-2 bg-gray-900 text-white rounded" />
