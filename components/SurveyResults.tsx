@@ -21,6 +21,7 @@ const SurveyResults: React.FC<SurveyResultsProps> = ({ survey_id }) => {
                 });
                 let response_decoded = await response.json();
                 setAnswers(response_decoded);
+                console.log(response_decoded);
             } catch (error) {
                 console.error('Error fetching answers:', error);
             }
@@ -33,24 +34,27 @@ const SurveyResults: React.FC<SurveyResultsProps> = ({ survey_id }) => {
 
     return (
         <table className="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th className="py-2">Name</th>
-                    <th className="py-2">Email</th>
-                    <th className="py-2">Phone</th>
-                    <th className="py-2">Cover Letter</th>
-                </tr>
-            </thead>
-            <tbody>
-                {answers.map((answer, index) => (
-                    <tr key={index} className="border-t">
-                        <td className="py-2 px-4">{answer.answer.name}</td>
-                        <td className="py-2 px-4">{answer.answer.email}</td>
-                        <td className="py-2 px-4">{answer.answer.phone}</td>
-                        <td className="py-2 px-4">{answer.answer.cover_letter}</td>
-                    </tr>
-                ))}
-            </tbody>
+            {answers.length > 0 ?
+                <>
+                    <thead>
+                        {answers.length > 0 && (
+                            <tr>
+                                {Object.keys(answers[0].answer).filter(key => key != "resume").map((key, i) => (
+                                    <th key={i} className="py-2 px-4 text-left">{key}</th>
+                                ))}
+                            </tr>
+                        )}
+                    </thead>
+                    <tbody>
+                        {answers.map((answer, index) => (
+                            <tr key={index} className="border-t">
+                                {Object.keys(answer.answer).filter(key => key != "resume").map((key, i) => {
+                                    return <td key={i} className="py-2 px-4">{answer.answer[key]}</td>
+
+                                })}
+                            </tr>
+                        ))}
+                    </tbody></> : null}
         </table>
     );
 };
