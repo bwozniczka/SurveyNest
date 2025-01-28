@@ -16,7 +16,7 @@ export async function registerUser(firstName: string, lastName: string, email: s
     try {
 
         const baseUrl = await getBaseUrl();
-        const response = await fetch(`${baseUrl}/api/database/register`, {
+        const response = await fetch(`http://localhost:3000/api/database/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

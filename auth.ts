@@ -53,7 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     CredentialsProvider({
       async authorize(credentials) {
         const baseUrl = await getBaseUrl()
-        const res = await fetch(`${baseUrl}/api/database/login`, {
+        const res = await fetch(`http://localhost:3000/api/database/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),
